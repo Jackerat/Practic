@@ -5,7 +5,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1024, 720), "SFML Button and TextBox");
 
     sf::Font font;
-    if (!font.loadFromFile("C:/Users/moonvolk4/Downloads/arial/arial.ttf")) {
+    if (!font.loadFromFile("arial.ttf")) {
         std::cout << "Failed to load font!" << std::endl;
         return -1;
     }
