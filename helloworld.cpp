@@ -1,3 +1,7 @@
+// NOTHING WILL BE ADDED HERE
+// EMPTY_FILE
+
+
 #include <iostream>
 
 int main()
