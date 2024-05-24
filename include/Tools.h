@@ -3,6 +3,5 @@
 #include <fstream>
 #include <random>
 #include <SFML/Graphics.hpp>
-#include "TextBox.h"
+#include "TextField.h"
 #include "Button.h"
-#include "CheckBox.h"
