@@ -1,11 +1,11 @@
-#include "include/Widgets.h"
+#include "tools/Tools.h"
 
 int main() {
 
-    sf::RenderWindow window(sf::VideoMode(1024, 720), "SFML Button and TextBox");
+    sf::RenderWindow window(sf::VideoMode(1260, 720), "SFML Button and TextBox");
 
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("C:/Users/moonvolk4/Downloads/arial/arial.ttf")) {
         std::cout << "Failed to load font!" << std::endl;
         return -1;
     }
@@ -23,20 +23,30 @@ int main() {
     std::uniform_int_distribution<int> strengthDist(1, 10);
     std::uniform_int_distribution<int> genderDist(0, 1);
     std::uniform_int_distribution<int> raceDist(0, 2);
-    std::uniform_int_distribution<int> storyDist(0, 4);
     std::string characterAttributes = "Character Attributes:\n\n";
 
     std::string races[4] = {"Human", "Elf", "Dwarf", "Golubchik"};
     std::string genders[2] = {"Male", "Female"};
-    std::string storylines[5] = {
-        "The character is a descendant of an ancient dragon, whose blood grants them special abilities and magical heritage.\n They set out on a journey to find their progenitor and learn more about their origins.",
-        "The hero was exiled from a mysterious order of monks for breaking their tenets and sent out into\n a world they know little about. Now they must find their place and true purpose.",
-        "The character is a lost prince or princess from a forgotten kingdom consumed by darkness.\n Their goal is to reclaim their heritage and free their people.",
-        "The hero is a seeker of forgotten knowledge and the secrets of ancient civilizations.\n They strive to uncover the mysteries of lost worlds and face dangers on their path to truth.",
-        "The character is a cursed knight whose weapon carries power but also brings suffering to those around them.\n They must find a way to break the curse and redeem their sins."
-    };
+    std::vector<std::string> storylines1 = {
+        "The character grew up in a small village near the mountains.",
+        "The character has a mysterious past that they are trying to uncover.",
+        "The character is on a quest to avenge their fallen loved ones.",
+        "The character is known for their exceptional leadership skills.",
+        "The character is haunted by nightmares of a long-forgotten prophecy.",
+};
+    std::vector<std::string> storylines2 = {
+        "They were trained in the art of combat from a young age.",
+        "They have a deep connection with nature and can communicate with animals.",
+        "They have a hidden talent for playing musical instruments.",
+        "They possess a powerful artifact that grants them extraordinary powers."
+};
 
-    
+    int num_s1 = storylines1.size();
+    int num_s2 = storylines2.size();
+    std::uniform_int_distribution<int> storyDist1(0, num_s1 - 1);
+    std::uniform_int_distribution<int> storyDist2(0, num_s2 - 1);
+
+
     while (window.isOpen()) {
 
         sf::Event event;
@@ -52,15 +62,16 @@ int main() {
                         std::string gender = genders[genderDist(gen)];
                         std::string race = races[raceDist(gen)];
                         int strength = strengthDist(gen);
-                        std::string characterStoryline = storylines[storyDist(gen)];
                         std::string characterAttributes = "Character Attributes:\n";
 
                         characterAttributes += "Height: " + std::to_string(height) + " cm\n";
                         characterAttributes += "Gender: " + gender + "\n";
                         characterAttributes += "Race: " + race + "\n";
                         characterAttributes += "Strength: " + std::to_string(strength) + "\n";
-                        characterAttributes += "Story : \n" + characterStoryline + "\n";
-                        textBox.setText(characterAttributes);
+                        std::string characterStoryline = "Character Storyline:\n";
+                        characterStoryline += storylines1[storyDist1(gen)] + "\n" + storylines2[storyDist2(gen)] + "\n";
+
+                        textBox.setText(characterAttributes + characterStoryline);
                     }
                     else if (finishButton.isClicked(mousePos)) {
                         window.close();
