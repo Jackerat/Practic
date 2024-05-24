@@ -35,4 +35,62 @@ int main() {
         "The hero is a seeker of forgotten knowledge and the secrets of ancient civilizations.\n They strive to uncover the mysteries of lost worlds and face dangers on their path to truth.",
         "The character is a cursed knight whose weapon carries power but also brings suffering to those around them.\n They must find a way to break the curse and redeem their sins."
     };
+
+    
+    while (window.isOpen()) {
+
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+                    if (generateButton.isClicked(mousePos)) {
+                        int height = heightDist(gen);
+                        std::string gender = genders[genderDist(gen)];
+                        std::string race = races[raceDist(gen)];
+                        int strength = strengthDist(gen);
+                        std::string characterStoryline = storylines[storyDist(gen)];
+                        std::string characterAttributes = "Character Attributes:\n";
+
+                        characterAttributes += "Height: " + std::to_string(height) + " cm\n";
+                        characterAttributes += "Gender: " + gender + "\n";
+                        characterAttributes += "Race: " + race + "\n";
+                        characterAttributes += "Strength: " + std::to_string(strength) + "\n";
+                        characterAttributes += "Story : \n" + characterStoryline + "\n";
+                        textBox.setText(characterAttributes);
+                    }
+                    else if (finishButton.isClicked(mousePos)) {
+                        window.close();
+                    }
+                    else if (deleteButton.isClicked(mousePos)) {
+                        characterAttributes = "";
+                        textBox.setText(characterAttributes);
+                    }
+                }
+            }
+            else if (event.type == sf::Event::MouseMoved) {
+                sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+                generateButton.isHovered(mousePos);
+                finishButton.isHovered(mousePos);
+                deleteButton.isHovered(mousePos);
+            }
+        }
+
+
+        window.clear(sf::Color(242, 243, 244));
+
+
+        generateButton.draw(window);
+        finishButton.draw(window);
+        deleteButton.draw(window);
+        textBox.draw(window);
+
+
+        window.display();
+    }
+
+    return 0;
 }
